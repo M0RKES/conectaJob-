@@ -1,0 +1,184 @@
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity, Linking } from 'react-native';
+
+export default function App() {
+  const [profile, setProfile] = useState({
+    name: 'João Silva',
+    role: 'Programador Pleno',
+    about: 'Sou um programador pleno com mais de 5 anos de experiência em diversas tecnologias e uma paixão por resolver problemas complexos. Tenho habilidades em desenvolvimento web, bancos de dados e metodologias ágeis.',
+    skills: ['JavaScript', 'HTML & CSS', 'React', 'Node.js', 'Python', 'SQL'],
+    experience: [
+      'Empresa X - Desenvolvedor Frontend (2019-2021)',
+      'Empresa Y - Desenvolvedor Full Stack (2021-2023)',
+      'Empresa Z - Programador Pleno (2023-Presente)'
+    ],
+    email: 'joao.silva@exemplo.com',
+    linkedin: 'https://linkedin.com/in/joaosilva',
+    profileImage: 'https://via.placeholder.com/150',
+    bannerImage: 'https://via.placeholder.com/350',
+    resumeLink: 'https://example.com/curriculo'
+  });
+
+  const handleDownloadResume = () => {
+    Linking.openURL(profile.resumeLink);
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.bannerContainer}>
+        <Image source={{ uri: profile.bannerImage }} style={styles.bannerImage} />
+      </View>
+      <View style={styles.profileContainer}>
+        <Image source={{ uri: profile.profileImage }} style={styles.profilePicture} />
+        <Text style={styles.profileName}>{profile.name}</Text>
+        <Text style={styles.profileRole}>{profile.role}</Text>
+      </View>
+      <View style={styles.aboutContainer}>
+        <Text style={styles.sectionTitle}>Sobre Mim</Text>
+        <TextInput
+          style={styles.aboutContent}
+          value={profile.about}
+          multiline
+          editable={false}
+        />
+      </View>
+      <View style={styles.skillsContainer}>
+        <Text style={styles.sectionTitle}>Habilidades</Text>
+        {profile.skills.map((skill, index) => (
+          <Text key={index} style={styles.skillItem}>{skill}</Text>
+        ))}
+      </View>
+      <View style={styles.experienceContainer}>
+        <Text style={styles.sectionTitle}>Experiência</Text>
+        {profile.experience.map((exp, index) => (
+          <Text key={index} style={styles.experienceItem}>{exp}</Text>
+        ))}
+        <TouchableOpacity onPress={handleDownloadResume} style={styles.resumeButton}>
+          <Text style={styles.resumeButtonText}>Baixar Currículo</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.contactContainer}>
+        <Text style={styles.sectionTitle}>Contato</Text>
+        <TextInput
+          style={styles.contactContent}
+          value={profile.email}
+          editable={false}
+        />
+        <TextInput
+          style={styles.contactContent}
+          value={profile.linkedin}
+          editable={false}
+        />
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f9f9f9',
+  },
+  bannerContainer: {
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    elevation: 5,
+  },
+  bannerImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+  },
+  profileContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profilePicture: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    borderWidth: 5,
+    borderColor: '#fff',
+  },
+  profileName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  profileRole: {
+    fontSize: 18,
+    color: '#777',
+    marginBottom: 10,
+  },
+  aboutContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    elevation: 3,
+    borderRadius: 10,
+    padding: 15,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  aboutContent: {
+    fontSize: 16,
+    color: '#555',
+    lineHeight: 24,
+  },
+  skillsContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    elevation: 3,
+    borderRadius: 10,
+    padding: 15,
+  },
+  skillItem: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#555',
+  },
+  experienceContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    elevation: 3,
+    borderRadius: 10,
+    padding: 15,
+  },
+  experienceItem: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#555',
+  },
+  resumeButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  resumeButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  contactContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+
+        elevation: 3,
+    borderRadius: 10,
+    padding: 15,
+  },
+  contactContent: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: '#555',
+  },
+});
+
